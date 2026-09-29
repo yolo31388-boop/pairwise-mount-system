@@ -23,9 +23,13 @@ class MountSystem:
         self.mounts: dict[str, Mount] = {}
         self.player_mount = {}
 
+    VALID_SLOTS = ("saddle", "stirrup", "armor", "ornament")
+
     def equip(self, mid, equip):
         mount = self.mounts[mid]
-        # bug1: 无槽位类型区分
+        # 槽位类型校验：不匹配不能装备
+        if equip.slot not in self.VALID_SLOTS:
+            return False
         mount.equipment.append(equip)
         return True
 
